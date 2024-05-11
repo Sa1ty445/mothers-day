@@ -1,13 +1,30 @@
-import { Box, Text, Image, Flex, Collapse, Button } from "@chakra-ui/react";
-import { useState } from "react";
+import React, { useState } from 'react';
+import { Box, Button, Flex, Image, Text } from '@chakra-ui/react';
+import confetti from 'canvas-confetti';
 
-export default function Home() {
-  const [show, setShow] = useState(false);
+const YourComponent = () => {
+  const [showConfetti, setShowConfetti] = useState(false);
 
-  const handleToggle = () => setShow(!show);
+const handleToggle = () => {
+  setShowConfetti(!showConfetti);
+  console.log('Button Clicked, showConfetti is now', !showConfetti);
+  
+  if (!showConfetti) {
+    confetti({
+      particleCount: 100,
+      spread: 70,
+      origin: { y: 0.6 },
+      duration: 2 * 1000,
+    });
+  }
+};
+
+
+
 
   return (
     <div>
+      {showConfetti && <div id="confetti"></div>}
       <main>
         <Box
           display="flex"
@@ -19,32 +36,7 @@ export default function Home() {
             <Text fontSize="25px" fontWeight="bold" color="#C769AA">
               HAPPY MOTHERS DAY
             </Text>
-            <Text
-              fontSize="20px"
-              fontWeight="semibold"
-              color="#C769AA"
-              marginTop="5px"
-              marginBottom="20px"
-            >
-              The most perfect women's day, mothers ❤️
-            </Text>
-            <Collapse startingHeight={0} in={show}>
-              <Text maxWidth="599px" color="#595F4F">
-                Elas tem a capacidade de ouvir o silêncio. Adivinhar
-                sentimentos. Encontrar a palavra certa nos momentos incertos.
-                Nos fortalecer quando tudo ao nosso redor parece ruir. Sabedoria
-                emprestada dos deuses para nos proteger e amparar. Sua
-                existência é em si um ato de amor. Gerar, cuidar, nutrir. Amar,
-                amar, amar... Amar com um amor incondicional que nada espera em
-                troca. Afeto desmedido e incontido, Mãe é um ser infinito.
-              </Text>
-              <Text marginTop="10px" maxWidth="599px" color="#595F4F">
-                Mãe, você é simplesmente a mãe mais batalhadora de sempre! Você
-                consegue multiplicar-se de um modo tão peculiar, tão atento, tão
-                forte. Coisas dessas estão somente à altura de pessoas como
-                você, Mãe!
-              </Text>
-            </Collapse>
+            
             <Button
               width="150px"
               marginTop="10px"
@@ -53,8 +45,9 @@ export default function Home() {
               color="white"
               _hover={{ bg: "#D287BB" }}
             >
-              Clique aqui
+              Click Me
             </Button>
+            
           </Flex>
           <Image
             width="700px"
@@ -67,4 +60,7 @@ export default function Home() {
       </main>
     </div>
   );
-}
+};
+
+export default YourComponent
+
